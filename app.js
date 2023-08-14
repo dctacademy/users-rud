@@ -41,7 +41,7 @@ app.get('/api/tasks/:id', (req, res) => {
             res.json(err)
         } else {
             const tasks = JSON.parse(data)
-            const task = tasks.find(task => task.id == id)
+            const task = tasks.find(task => task._id == id)
             if (task) {
                 res.json(task)
             } else {
@@ -59,7 +59,7 @@ app.put('/api/tasks/:id', (req, res) => {
             res.json(err)
         } else {
             const tasks = JSON.parse(data)
-            const task = tasks.find(task => task.id == id)
+            const task = tasks.find(task => task._id == id)
             if (task) {
                 Object.assign(task, body)
                 fs.writeFile('./data.json', JSON.stringify(tasks), () => {
@@ -79,8 +79,8 @@ app.delete('/api/tasks/:id', (req, res) => {
             res.json(err)
         } else {
             let tasks = JSON.parse(data)
-            const task = tasks.find(task => task.id == id)
-            tasks = tasks.filter(task => task.id != id)
+            const task = tasks.find(task => task._id == id)
+            tasks = tasks.filter(task => task._id != id)
             fs.writeFile('./data.json', JSON.stringify(tasks), () => {
                 res.json(task)
             })
