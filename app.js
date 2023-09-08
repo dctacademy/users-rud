@@ -56,7 +56,9 @@ app.delete('/api/users/:id', (req, res) => {
             users = users.filter(user => user._id != id)
             if(user) {
                 fs.writeFile('./data.json', JSON.stringify(users), () => {
-                    res.json(user)
+                    res.json({
+                        notice: `successfully deleted ${user.name}`
+                    })
                 })
             } else {
                 res.status(404).json({ errors: "Record not found" })
