@@ -7,83 +7,60 @@ const port = 3033
 app.use(cors())
 app.use(express.json())
 
-app.get('/api/tasks', (req, res) => {
-    fs.readFile('./data.json', 'utf-8', (err, data) => {
-        if (err) {
-            res.json(err)
-        } else {
-            const tasks = JSON.parse(data)
-            res.json(tasks)
-        }
-    })
-})
-
-app.post('/api/tasks', (req, res) => {
-    const body = req.body
-    body._id = Number(new Date())
-    fs.readFile('./data.json', 'utf-8', (err, data) => {
-        if (err) {
-            res.json(err)
-        } else {
-            const tasks = JSON.parse(data)
-            tasks.push(body)
-            fs.writeFile('./data.json', JSON.stringify(tasks), () => {
-                res.json(body)
-            })
-        }
-    })
-})
-
-app.get('/api/tasks/:id', (req, res) => {
+app.get('/api/users/:id', (req, res) => {
     const id = req.params.id
     fs.readFile('./data.json', 'utf-8', (err, data) => {
         if (err) {
             res.json(err)
         } else {
-            const tasks = JSON.parse(data)
-            const task = tasks.find(task => task._id == id)
-            if (task) {
-                res.json(task)
+            const users = JSON.parse(data)
+            const user = users.find(user => user._id == id)
+            if (user) {
+                res.json(user)
             } else {
-                res.json({})
+                res.status(404).json({errors: "Record not found"})
             }
         }
     })
 })
 
-app.put('/api/tasks/:id', (req, res) => {
+app.put('/api/users/:id', (req, res) => {
     const id = req.params.id
     const body = req.body
     fs.readFile('./data.json', 'utf-8', (err, data) => {
         if (err) {
             res.json(err)
         } else {
-            const tasks = JSON.parse(data)
-            const task = tasks.find(task => task._id == id)
-            if (task) {
-                Object.assign(task, body)
-                fs.writeFile('./data.json', JSON.stringify(tasks), () => {
-                    res.json(task)
+            const users = JSON.parse(data)
+            const user = users.find(user => user._id == id)
+            if (user) {
+                Object.assign(user, body)
+                fs.writeFile('./data.json', JSON.stringify(users), () => {
+                    res.json(user)
                 })
             } else {
-                res.json({})
+                res.status(404).json({ errors: "Record not found" })
             }
         }
     })
 })
 
-app.delete('/api/tasks/:id', (req, res) => {
+app.delete('/api/users/:id', (req, res) => {
     const id = req.params.id
     fs.readFile('./data.json', 'utf-8', (err, data) => {
         if (err) {
             res.json(err)
         } else {
-            let tasks = JSON.parse(data)
-            const task = tasks.find(task => task._id == id)
-            tasks = tasks.filter(task => task._id != id)
-            fs.writeFile('./data.json', JSON.stringify(tasks), () => {
-                res.json(task)
-            })
+            let users = JSON.parse(data)
+            const user = users.find(user => user._id == id)
+            users = users.filter(user => user._id != id)
+            if(user) {
+                fs.writeFile('./data.json', JSON.stringify(users), () => {
+                    res.json(user)
+                })
+            } else {
+                res.status(404).json({ errors: "Record not found" })
+            }
         }
     })
 })

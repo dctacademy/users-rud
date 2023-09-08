@@ -1,1 +1,29 @@
-[]
+{
+  "users": [
+    {
+      "_id": 1,
+      "name": "John Doe",
+      "email": "johndoe@example.com"
+    },
+    {
+      "_id": 2,
+      "name": "Jane Smith",
+      "email": "janesmith@example.com"
+    },
+    {
+      "_id": 3,
+      "name": "Alice Johnson",
+      "email": "alicejohnson@example.com"
+    },
+    {
+      "_id": 4,
+      "name": "Bob Wilson",
+      "email": "bobwilson@example.com"
+    },
+    {
+      "_id": 5,
+      "name": "Eva Martinez",
+      "email": "evamartinez@example.com"
+    }
+  ]
+}
