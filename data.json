@@ -1,5 +1,4 @@
-{
-  "users": [
+[
     {
       "_id": 1,
       "name": "John Doe",
@@ -25,5 +24,4 @@
       "name": "Eva Martinez",
       "email": "evamartinez@example.com"
     }
-  ]
-}
+]
